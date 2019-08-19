@@ -84,4 +84,4 @@ class Tag(models.Model):
         return self.name + "(" + self.slug + ")"
 
     class Meta:
-        verbose_name_plural = 'カテゴリ'
+        verbose_name_plural = 'タグ'
