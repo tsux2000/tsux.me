@@ -1,0 +1,65 @@
+
+.nav {
+  margin: 0 5px;
+  width: 300px;
+}
+
+.nav__item {
+  background: #fff;
+  border-radius: 4px;
+  margin: 0 0 15px;
+  padding: 10px 20px;
+}
+
+.nav__wrap {
+  align-items: center;
+  display: flex;
+  flex-flow: column;
+}
+
+.nav__title {
+  border-bottom: 1px solid #333;
+  display: block;
+  font-size: 20px;
+  line-height: 1.8;
+  margin: 0 0 10px;
+  text-align: center;
+}
+
+.nav__anchor {
+  color: #333;
+  border-bottom: 1px dotted #333;
+  line-height: 2.2;
+}
+
+.nav__auth-img {
+  border-radius: 50%;
+  height: 80px;
+  width: 80px;
+}
+
+.nav__auth-name {
+  font-size: 18px;
+  line-height: 2;
+}
+
+.nav__auth-desc {
+  font-size: 14px;
+  line-height: 1.8;
+  text-align: center;
+}
+
+@media (max-width:1000px) {
+
+  .nav {
+    margin: 0;
+    padding: 10px;
+    width: 100%;
+  }
+
+  .nav__item {
+    padding: 10px;
+    width: 100%;
+  }
+
+}

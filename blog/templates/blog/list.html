@@ -1,0 +1,32 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block contents %}
+<section class="article">
+    <nav class="article-list">
+        <ul class="breadcrumb">
+            {% if meta.title != 'TOP' %}
+            <li><a class="breadcrumb__item" href="{{ request.scheme }}://{{ request.get_host }}/blog/">TOP</a>
+            <li><a class="breadcrumb__item breadcrumb__item--status_now">{{ meta.title }}</a>
+            {% else %}
+            <li><a class="breadcrumb__item  breadcrumb__item--status_now">TOP</a>
+            {% endif %}
+        </ul>
+        <h2 class="article-list__title">{{ meta.title }}</h2>
+        <span class="article-list__article-number">{{ article_number }}</span>
+        {% for item in article_list %}
+        <article>
+            <a class="article-list__item" href="{{ request.scheme }}://{{ request.get_host }}/blog/{{ item.slug }}">
+                <img class="article-list__thumb"
+                    src="{% if item.thumbnail %}{{ item.thumbnail.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}"
+                    alt="{{ item.title }}">
+                <div>
+                    <h6 class="article-list__title">{{ item.title }}</h6>
+                    <p class="article-list__desc">{{ item.description }}
+                        <br>投稿日 {{ item.create_date }} / 更新日 {{ item.update_date  }}
+                </div>
+            </a>
+        </article>
+        {% endfor %}
+    </nav>
+</section>
+{% endblock %}

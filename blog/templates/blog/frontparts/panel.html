@@ -1,0 +1,47 @@
+{% load static %}
+<section class="panel" id="js-panel">
+    <nav class="panel-nav" id="js-panel-nav">
+        <form class="js-panel-nav__form" action="{{ request.scheme }}://{{ request.get_host }}/blog/" post="get">
+            <input class="panel-nav__search" id="js-panel-nav__search" name="keywords" type="text" placeholder="記事を検索">
+            <ul class="panel-nav__menu">
+                <li class="panel-nav__menu-item panel-nav__menu-item--checked js-panel-nav__menu-item">
+                    <input class="panel-nav__item-hide js-panel-nav__button" type="radio" name="order" value="-views" checked="checked">
+                    <label for="all">おすすめ順</label>
+                </li>
+                <li class="panel-nav__menu-item js-panel-nav__menu-item">
+                    <input class="panel-nav__item-hide js-panel-nav__button" type="radio" name="order" value="-create_date">
+                    <label for="new">新着順</label>
+                </li>
+                <li class="panel-nav__menu-item js-panel-nav__menu-item">
+                    <input class="panel-nav__item-hide js-panel-nav__button" type="radio" name="order" value="create_date">
+                    <label for="new">投稿順</label>
+                </li>
+            </ul>
+            <ul class="panel-nav__menu">
+                <li class="panel-nav__menu-item js-panel-nav__menu-item panel-nav__menu-item--checked">
+                    <input class="panel-nav__item-hide js-panel-nav__button" type="radio" name="category" value="all" checked="checked">
+                    <label for="all">カテゴリ指定なし</label>
+                </li>
+                {% for item in categories %}
+                <li class="panel-nav__menu-item js-panel-nav__menu-item">
+                    <input class="panel-nav__item-hide js-panel-nav__button" type="radio" name="category" value="{{ item.slug }}">
+                    <label for="{{ item.slug }}">{{ item.name }}</label>
+                </li>
+                {% endfor %}
+            </ul>
+            <ul class="panel-nav__menu">
+                <li class="panel-nav__menu-item js-panel-nav__menu-item panel-nav__menu-item--checked">
+                    <input class="panel-nav__item-hide js-panel-nav__button" type="radio" name="tag" value=""  checked="checked">
+                    <label for="">タグ指定なし</label>
+                </li>
+                {% for item in tags %}
+                <li class="panel-nav__menu-item js-panel-nav__menu-item">
+                    <input class="panel-nav__item-hide js-panel-nav__button" type="radio" name="tag" value="{{ item.slug }}">
+                    <label for="{{ item.slug }}">{{ item.name }}</label>
+                </li>
+                {% endfor %}
+            </ul>
+            <button class="panel-nav__submit" id="js-panel-nav__submit" type="button">Search <i class="fas fa-search"></i></button>
+        </form>
+    </nav>
+</section>

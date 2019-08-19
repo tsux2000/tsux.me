@@ -1,0 +1,20 @@
+
+# chash of Python
+__pycache__/
+*.pyc
+
+# editor setting files
+.vscode/
+
+# Django media files
+media/
+
+# Django stuff
+migrations/*initial.py
+db.sqlite3
+
+# Django local settings file
+local.py
+
+# virtual environment
+venv/

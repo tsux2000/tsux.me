@@ -1,0 +1,13 @@
+{% load static %}
+<header class="header">
+    <i class="fas fa-bars header__panel-button" id="js-header__panel-button"></i>
+    {% if meta.slug and meta.slug != 'list' %}
+    <a class="header__title" href="{{ request.scheme }}://{{ request.get_host }}/blog/">tsux.me</a>
+    <span class="header__subtitle">〜 情報系学生の IT ブログ 〜</span>
+    {% else %}
+    <h1 class="header__h1">
+        <a class="header__title" href="{{ request.scheme }}://{{ request.get_host }}/blog/">tsux.me</a>
+        <span class="header__subtitle">〜 情報系学生の IT ブログ 〜</span>
+    </h1>
+    {% endif %}
+</header>

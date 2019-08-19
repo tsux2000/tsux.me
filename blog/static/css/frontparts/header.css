@@ -1,0 +1,50 @@
+
+.header {
+  background: #333;
+  height: 50px;
+  padding: 0 10px;
+  position: fixed;
+  width: 100%;
+  z-index: 90;
+  color: #fff;
+}
+
+.header__panel-button {
+  cursor: pointer;
+  font-size: 28px;
+  line-height: 50px;
+  margin: 0 10px;
+}
+
+.header__h1 {
+  display: inline-block;
+  font-weight: normal;
+}
+
+.header__subtitle {
+  font-size: 14px;
+  margin: 0 10px;
+}
+
+.header__title {
+  color: #fff;
+  font-size: 32px;
+  line-height: 50px;
+  margin: 0 10px;
+}
+
+@media (max-width:1000px) {
+
+  .header__panel-button {
+    font-size: 24px;
+  }
+
+  .header__subtitle {
+    font-size: 10px;
+  }
+
+  .header__title {
+    font-size: 22px;
+  }
+
+}

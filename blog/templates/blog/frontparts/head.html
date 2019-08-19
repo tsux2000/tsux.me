@@ -1,0 +1,35 @@
+{% load static %}
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE = edge">
+    <meta name="viewport" content="width = device-width, initial-scale = 1">
+    <meta name="description" content="{{ meta.description }}">
+    <meta name="robots" content="{{ meta.robots }}">
+    <meta property="og:url" content="{{ request.build_absolute_uri }}">
+    <meta property="og:title" content="{{ meta.title }}">
+    <meta property="og:type" content="{{ meta.type }}">
+    <meta property="og:description" content="{{ meta.description }}">
+    <meta property="og:image" content="{% if meta.thumbnail %}{{ meta.thumbnail.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}">
+    <meta name="twitter:card" content="summary">
+    <meta name="twitter:site" content="@tsux2000">
+    <meta property="og:site_name" content="tsux.me">
+    <meta property="og:locale" content="ja_JP">
+    <!-- <meta property="fb:app_id" content=""> -->
+    <meta name="format-detection" content="email=no,telephone=no,address=no">
+    <meta name="msapplication-TileImage" content="{% static 'img/favicon.ico' %}">
+    <meta name="msapplication-TileColor" content="#228b22">
+    <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script type="text/javascript" src="{% static 'js/marked.js' %}"></script>
+    <script type="text/x-mathjax-config">
+        MathJax.Hub.Config({
+            tex2jax: {
+                inlineMath: [ ['$','$'], ["\\(","\\)"] ],
+                displayMath: [ ['$$','$$'], ["\\[","\\]"] ]
+            }
+        });
+    </script>
+    <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
+    <title>{{ meta.title }} | tsux.me ブログ</title>
+</head>
