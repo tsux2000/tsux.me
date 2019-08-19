@@ -6,7 +6,8 @@ __pycache__/
 # editor setting files
 .vscode/
 
-# Django media files
+# Django static files
+/static/
 media/
 
 # Django stuff
@@ -18,3 +19,7 @@ local.py
 
 # virtual environment
 venv/
+
+# socket file
+*.sock
+
