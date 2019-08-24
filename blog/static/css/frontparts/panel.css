@@ -2,7 +2,7 @@
 .panel {
   display: none;
   background: rgba(0, 0, 0, 0.7);
-  height: 100vh;
+  height: 100%;
   overflow-y: scroll;
   padding: 60px 0;
   position: fixed;
@@ -14,7 +14,7 @@
   color: #fff;
   margin: 20px auto;
   padding: 40px;
-  width: 900px;
+  width: 800px;
 }
 
 .panel-nav__search {

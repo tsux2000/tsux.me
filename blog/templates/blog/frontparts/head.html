@@ -9,7 +9,7 @@
     <meta property="og:title" content="{{ meta.title }}">
     <meta property="og:type" content="{{ meta.type }}">
     <meta property="og:description" content="{{ meta.description }}">
-    <meta property="og:image" content="{% if meta.thumbnail %}{{ meta.thumbnail.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}">
+    <meta property="og:image" content="{% if meta.thumbnail %}{{ meta.thumbnail.url }}{% else %}{% static 'img/site-image.png' %}{% endif %}">
     <meta name="twitter:card" content="summary">
     <meta name="twitter:site" content="@tsux2000">
     <meta property="og:site_name" content="tsux.me">
@@ -19,6 +19,7 @@
     <meta name="msapplication-TileImage" content="{% static 'img/favicon.ico' %}">
     <meta name="msapplication-TileColor" content="#228b22">
     <link rel="canonical" href="{{ request.build_absolute_uri }}">
+    <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
     <script type="text/javascript" src="{% static 'js/marked.js' %}"></script>

@@ -54,7 +54,7 @@ class ArticleListView(TemplateView):
 
         meta = {
             'slug': 'list',
-            'robots': 'index, follow',
+            'robots': 'noindex, follow',
             'page_type': 'website',
             'description': 'どうも、情報系学生の tsux といいます。 何かと知識の整理をする必要が増えたので、 ポートフォリオにもなるかなと思い、どうせなら、とブログを作りました。 日々の学びを記録したり、知識の整理のために書いていこうと思います。 IT 関連を勉強しようと思っている読者の方の参考になれば幸いです。',
             'title': title,
