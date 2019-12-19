@@ -1,74 +1,107 @@
-from django.views.generic import TemplateView
-from django.shortcuts import redirect, render
-from .func import *
+import datetime
+from blog.models import Article, Category, Tag
+from django.utils import timezone
+from django.db.models import Q
+from django.shortcuts import get_object_or_404
+from django.views.generic import TemplateView, ListView
 
 class ArticleView(TemplateView):
 
-    def get(self, request, article_slug):
+    template_name = 'blog/index.html'
+    categories = Category.objects.filter(del_flg=False)
+    tags = Tag.objects.filter(del_flg=False)
 
-        # セッション情報の初期化
-        init_session(request)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        self.article = get_object_or_404(Article, slug=kwargs.get('article_slug'), private_flg=False, del_flg=False)
+        self.process_session()
+        base_url = self.request.scheme + '://' + self.request.get_host() + '/blog/'
+        self.breadcrumb = [
+            {'url': base_url, 'name': 'TOP'},
+            {'url': base_url + 'category/' + self.article.category.slug + '/', 'name': self.article.category.name},
+            {'url': base_url + self.article.slug + '/', 'name': self.article.title},
+        ]
+        context.update({
+            'title': self.article.title,
+            'breadcrumb': self.breadcrumb,
+            'article': self.article,
+            'categories': self.categories,
+            'tags': self.tags,
+            'dates': Article.objects.filter(create_date__lte=timezone.now()).dates('create_date', 'month', order='DESC'),
+        })
+        return context
 
-        # 記事の取得
-        article = get_article(article_slug)
+    def process_session(self):
+        if 'history' not in self.request.session:
+            self.request.session['history'] = []
+        log = [datetime.date.today().strftime('%Y-%m-%d'), self.article.pk]
+        if log not in self.request.session['history']:
+            self.article.views += 1
+            self.article.save()
+        self.request.session['history'].append(log)
 
-        # 表示する記事が決定したところで記事の view 数の計算
-        count_view(request, article)
 
-        # テンプレートに渡すパラメータの用意
-        param = {
-            'meta': article,
-            'article': article,
-            'categories': get_category_list(),
-            'tags': get_tag_list(),
-        }
+class ArticleListView(ListView):
 
-        return render(request, 'blog/index.html', param)
+    template_name = 'blog/list.html'
+    model = Article
+    paginate_by = 6
+    categories = Category.objects.filter(del_flg=False)
+    tags = Tag.objects.filter(del_flg=False)
+    title = '検索結果'
+    breadcrumb = []
 
-class ArticleListView(TemplateView):
-
-    def get(self, request, category_slug='', yyyy_mm=''):
-
-        page_no = request.GET.get('page_no') if 'page_no' in request.GET else 1
-        order = request.GET.get('order') if 'order' in request.GET else '-create_date'
-        tag_slug = request.GET.get('tag') if 'tag' in request.GET else ''
-        keywords = request.GET.get('keywords') if 'keywords' in request.GET else ''
-
-        article_list = get_article_list(category_slug, yyyy_mm, page_no, order)
-
-        if keywords or tag_slug:
-            keys =  keywords.replace('　', ' ').split()
-            tag = get_tag(tag_slug) if tag_slug else ''
-            category = get_category(category_slug) if category_slug else ''
-            article_list = search_articles(keys, category, tag, page_no, order)
-            title = '絞り込み検索結果'
+    def get_queryset(self):
+        articles = self.model.objects.filter(private_flg=False, del_flg=False).order_by(self.request.GET.get('order', '-views'))
+        category_slug = self.request.GET.get('category', self.kwargs.get('category_slug'))
+        tag_slug = self.request.GET.get('tag', '')
+        year_and_month = self.request.GET.get('archive', '').split('-')
+        keywords = self.request.GET.get('keywords', '').replace('　', ' ').split()
+        base_url = self.request.scheme + '://' + self.request.get_host() + '/blog/'
+        self.breadcrumb = [{'url': base_url, 'name': 'TOP'}]
+        if len(year_and_month) == 2:
+            articles = articles.filter(create_date__year=year_and_month[0], create_date__month=year_and_month[1])
+            self.breadcrumb.append({
+                'url': base_url + '?archive=' + '-'.join(year_and_month),
+                'name': '/'.join(year_and_month)
+            })
+            self.title = '年'.join(year_and_month) + '月のアーカイブ'
         elif category_slug:
-            category = get_category(category_slug)
-            title = '{} の記事一覧'.format(category.name)
-        elif yyyy_mm:
-            year = yyyy_mm.split('_')[0]
-            month = yyyy_mm.split('_')[1] + '月' if '_' in yyyy_mm else ''
-            title = "{0}年{1}の記事一覧".format(year, month)
+            category = get_object_or_404(self.categories, slug=category_slug)
+            articles = articles.filter(category=category)
+            self.breadcrumb.append({
+                'url': base_url + 'category/' + category.slug + '/',
+                'name': '「' + category.name + '」カテゴリ'
+            })
+            self.title = '「' + category.name + '」カテゴリ'
         else:
-            title= 'TOP'
+            self.title = '記事一覧'
+        if tag_slug:
+            tag = get_object_or_404(self.tags, slug=tag_slug)
+            articles = articles.filter(tag=tag)
+            self.breadcrumb.append({
+                'url': base_url + '?tag=' + tag.slug,
+                'name': '「' + tag.name + '」タグ'
+            })
+            self.title = '検索結果'
+        if keywords:
+            for i in keywords:
+                articles = articles.filter(Q(title__icontains=i) | Q(contents__icontains=i) | Q(description__icontains=i))
+            self.breadcrumb.append({
+                'url': base_url + '?keywords=' + ' '.join(keywords),
+                'name': 'キーワード「' + ' '.join(keywords) + '」の記事'
+            })
+            self.title = '検索結果'
+        return articles
 
-        meta = {
-            'slug': 'list',
-            'robots': 'noindex, follow',
-            'page_type': 'website',
-            'description': 'どうも、情報系学生の tsux といいます。 何かと知識の整理をする必要が増えたので、 ポートフォリオにもなるかなと思い、どうせなら、とブログを作りました。 日々の学びを記録したり、知識の整理のために書いていこうと思います。 IT 関連を勉強しようと思っている読者の方の参考になれば幸いです。',
-            'title': title,
-            'thumbnail': {'url': ''},
-        }
-
-        # テンプレートに渡すパラメータの用意
-        param = {
-            'meta': meta,
-            'article_list': article_list,
-            'article_number': get_article_number(article_list, page_no, order),
-            'categories': get_category_list(),
-            'tags': get_tag_list(),
-        }
-
-        return render(request, 'blog/list.html', param)
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context.update({
+            'title': self.title,
+            'breadcrumb': self.breadcrumb,
+            'categories': self.categories,
+            'tags': self.tags,
+            'dates': Article.objects.filter(create_date__lte=timezone.now()).dates('create_date', 'month', order='DESC'),
+        })
+        return context
 

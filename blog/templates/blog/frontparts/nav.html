@@ -7,13 +7,13 @@
             <span class="nav__auth-name">tsux</span>
             <p class="nav__auth-desc">
                 tsux です。2000 年生まれ京大生です。
-                アルバイトで WEB 系のエンジニア（サーバ＆フロント）を経験しました。
-                現在 Django でサービスを立ち上げようと頑張ってます。
-                AI 系も勉強中です。
+                アルバイトでWEB開発のエンジニアをやっています。
+                最近参加させてもらった機械学習のハッカソンに影響を受けて機械学習の勉強中。
+                現在、Djangoでのサービス立ち上げや機械学習のフレームワーク作りなどを行なっています。
             </p>
             <ul class="nav__auth-sns">
-                <li><a class="nav__anchor" href="https://twitter.com/tsux2000">Twitter</a>
-                <li><a class="nav__anchor" href="https://github.com/tsux2000">GitHub</a>
+                <li><a class="nav__anchor" href="https://twitter.com/tsux2000"><i class="fab fa-twitter"></i> Twitter</a>
+                <li><a class="nav__anchor" href="https://github.com/tsux2000"><i class="fab fa-github"></i> GitHub</a>
             </ul>
         </div>
     </div>
@@ -22,28 +22,19 @@
         <ul class="nav__wrap">
             {% for item in categories %}
             <li>
-                <a class="nav__anchor"
-                    href="{{ request.scheme }}://{{ request.get_host }}/blog/category/{{ item.slug }}/">{{ item.name }}</a>
+                <a class="nav__anchor" href="{{ request.scheme }}://{{ request.get_host }}/blog/category/{{ item.slug }}/">{{ item.name }}</a>
             </li>
             {% endfor %}
             </ul>
     </div>
-    <!-- <div class="nav__item">
+    <div class="nav__item">
         <span class="nav__title">ARCHIVE</span>
         <ul class="nav__wrap">
-            {% for item in archives %}
+            {% for item in dates %}
             <li>
-                <a class="nav__anchor" href="{{ request.scheme }}://{{ request.get_host }}/blog/archive/{{ item.year }}/{{ item.month }}/">{{ item.year }}年{{ item.month }}月</a>
+                <a class="nav__anchor" href="{{ request.scheme }}://{{ request.get_host }}/blog/?archive={{ item.year }}-{{ item.month }}">{{ item.year }}年{{ item.month }}月</a>
             </li>
             {% endfor %}
         </ul>
-    </div> -->
-    <!-- <div class="nav__item">
-        <span class="nav__title">SHARE</span>
-        <ul class="nav__wrap">
-            <li><a class="nav__anchor">Twitter</a>
-            <li><a class="nav__anchor">LINE</a>
-            <li><a class="nav__anchor">FaceBook</a>
-        </ul>
-    </div> -->
+    </div>
 </nav>

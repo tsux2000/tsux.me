@@ -2,31 +2,43 @@
 {% load static %}
 {% block contents %}
 <section class="article">
-    <nav class="article-list">
-        <ul class="breadcrumb">
-            {% if meta.title != 'TOP' %}
-            <li><a class="breadcrumb__item" href="{{ request.scheme }}://{{ request.get_host }}/blog/">TOP</a>
-            <li><a class="breadcrumb__item breadcrumb__item--status_now">{{ meta.title }}</a>
-            {% else %}
-            <li><a class="breadcrumb__item  breadcrumb__item--status_now">TOP</a>
-            {% endif %}
-        </ul>
-        <h2 class="article-list__title">{{ meta.title }}</h2>
-        <span class="article-list__article-number">{{ article_number }}</span>
-        {% for item in article_list %}
-        <article>
-            <a class="article-list__item" href="{{ request.scheme }}://{{ request.get_host }}/blog/{{ item.slug }}">
-                <img class="article-list__thumb"
-                    src="{% if item.thumbnail %}{{ item.thumbnail.url }}{% else %}{% static 'img/default.jpg' %}{% endif %}"
-                    alt="{{ item.title }}">
-                <div>
-                    <h6 class="article-list__title">{{ item.title }}</h6>
-                    <p class="article-list__desc">{{ item.description }}
-                        <br>投稿日 {{ item.create_date }} / 更新日 {{ item.update_date  }}
-                </div>
-            </a>
-        </article>
-        {% endfor %}
-    </nav>
+  <nav class="article-list">
+    <ul class="breadcrumb">
+      {% for item in breadcrumb %}
+      <li><a class="breadcrumb__item" href="{{ item.url }}">{{ item.name }}</a>
+      {% endfor %}
+    </ul>
+    <h2 class="article-list__title">{{ title }}</h2>
+    <span class="article-list__article-number">{{ page_obj.start_index }}{% if page_obj.start_index != page_obj.end_index %} 〜 {{ page_obj.end_index }}{% endif %}件 / {{ page_obj.paginator.count }}件中</span>
+    {% for item in object_list %}
+    <article>
+        <a class="article-list__item" href="{{ request.scheme }}://{{ request.get_host }}/blog/{{ item.slug }}">
+          {% if item.thumbnail %}
+          <img class="article-list__thumb" src="{{ item.thumbnail.url }}" alt="{{ item.title }}">
+          {% endif %}
+          <div>
+            <h6 class="article-list__item-title">{{ item.title }}</h6>
+            <p class="article-list__desc">{{ item.description }}
+              <br>投稿日 {{ item.create_date }} / 更新日 {{ item.update_date  }}
+          </div>
+        </a>
+    </article>
+    {% endfor %}
+    <ul class="list__page-nav">
+      {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}">前へ</a>
+      {% endif %}
+      {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+      <li><span class="list__page-nav-item">{{ num }}</span></li>
+      {% else %}
+      <li><a class="list__page-nav-item" href="?page={{ num }}">{{ num }}</a></li>
+      {% endif %}
+      {% endfor %}
+      {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}">次へ</a>
+      {% endif %}
+    </ul>
+  </nav>
 </section>
 {% endblock %}

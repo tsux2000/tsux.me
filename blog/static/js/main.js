@@ -1,14 +1,3 @@
-// function show_center(obj) {
-//     var wrapper = $("<div class=\"wrap_center_box\">");
-//     obj.show().addClass('center_box').wrap(wrapper).css({
-//           'margin-left': -obj.outerWidth() / 2 + 'px',
-//           'margin-top': -obj.outerHeight() / 2 + 'px'
-//     });
-//     $(".wrap_center_box").on('click touched', function (event) {
-//       if (!$(event.target).closest(obj).length) obj.hide().unwrap();
-//     });
-// }
-
 $(function() {
 
   // --- header/nav 関連 ---
@@ -25,17 +14,8 @@ $(function() {
   // panel-nav の絞り込みボタンクリック時
   $('.js-panel-nav__menu-item').on('click touched', function () {
     $(this).siblings().removeClass('panel-nav__menu-item--checked');
-    $(this).siblings().find('.js-panel-nav__button').attr('checked', false);
-    $(this).addClass('panel-nav__menu-item--checked');
-    $(this).find('.js-panel-nav__button').attr('checked', true);
-  });
-
-  // panel-nav の検索ボタンクリック時
-  $('#js-panel-nav__submit').on('click touched', function () {
-    var category = $('.js-panel-nav__button[name=category]:checked').val();
-    var url = $('.js-panel-nav__form').attr('action');
-    if (category != 'all') url += 'category/' + category + '/';
-    $('.js-panel-nav__form').attr('action', url).submit();
+    $(this).siblings().find('.js-panel-nav__button[checked=checked]').attr('checked', false);
+    $(this).addClass('panel-nav__menu-item--checked').find('.js-panel-nav__button').attr('checked', true);
   });
 
   // --- Markdown, MathJax 関連 ---

@@ -19,7 +19,7 @@
             </ul>
             <ul class="panel-nav__menu">
                 <li class="panel-nav__menu-item js-panel-nav__menu-item panel-nav__menu-item--checked">
-                    <input class="panel-nav__item-hide js-panel-nav__button" type="radio" name="category" value="all" checked="checked">
+                    <input class="panel-nav__item-hide js-panel-nav__button" type="radio" name="category" value="" checked="checked">
                     <label for="all">カテゴリ指定なし</label>
                 </li>
                 {% for item in categories %}
@@ -41,7 +41,7 @@
                 </li>
                 {% endfor %}
             </ul>
-            <button class="panel-nav__submit" id="js-panel-nav__submit" type="button">Search <i class="fas fa-search"></i></button>
+            <button class="panel-nav__submit" id="js-panel-nav__submit" type="submit">Search <i class="fas fa-search"></i></button>
         </form>
     </nav>
 </section>

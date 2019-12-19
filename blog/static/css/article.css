@@ -27,7 +27,6 @@
   color: #888;
   font-size: 14px;
   margin: 0 5px;
-  text-decoration: underline;
 }
 
 .breadcrumb__item::after {
@@ -36,12 +35,12 @@
   margin-left: 10px;
 }
 
-.breadcrumb__item--status_now::after {
+.breadcrumb li:last-child .breadcrumb__item::after {
   display: none;
 }
 
 .article__title {
-  font-size: 28px;
+  font-size: 36px;
   line-height: 1.8;
   margin: 10px 20px;
   text-align: center;
