@@ -5,13 +5,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <meta name="description" content="tsux.me は学生エンジニアのポートフォリオサイトです。">
-  <meta name="robots" content="index, follow">
+  <meta name="description" content="学生エンジニアtsuxのポートフォリオサイトです。">
+  <meta name="robots" content="index,follow">
   <meta property="og:url" content="https://tsux.me/">
   <meta property="og:title" content="tsux.me">
   <meta property="og:type" content="website">
-  <meta property="og:description" content="tsux.me は学生エンジニアのポートフォリオサイトです。">
-  <meta property="og:image" content="{% static 'img/site-image.png' %}">
+  <meta property="og:description" content="学生エンジニアtsuxのポートフォリオサイトです。">
+  <meta property="og:image" content="{% static 'img/bgi.png' %}">
   <meta name="twitter:card" content="summary">
   <meta name="twitter:site" content="@tsux2000">
   <meta property="og:site_name" content="tsux.me">
@@ -24,17 +24,22 @@
   <link rel="stylesheet" href="{% static 'css/index.css' %}">
   <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
   <script type="text/javascript" src="{% static 'js/index.js' %}"></script>
-  <title>tsux.me - 学生エンジニアのポートフォリオ</title>
+  <title>tsux.me</title>
 </head>
 <body class="body">
-  {% include './frontparts/header.html' %}
+  <header class="header">
+    <h1 class="header__h1">
+      <a class="header__title" href="https://tsux.me/">tsux.me</a>
+      <span class="header__subtitle">〜 My Portfolio 〜</span>
+    </h1>
+  </header>
   <section class="contents">
     <div class="about">
       <h2 class="about__title">ABOUT</h2>
       <ul class="about__list">
         <li class="about__item"> Name: tsux (遠藤 尽 / エンドウ ツクス)
         <li class="about__item"> Birth: 2000/3/22
-        <li class="about__item"> Univ: 京都大学 2回生
+        <li class="about__item"> Univ: 京都大学
         <li class="about__item"> Contact:
           <a  class="about__anchor" href="mailto:tsux2000@gmail.com">tsux2000@gmail.com</a>
         <li class="about__item"> Blog:
@@ -55,21 +60,25 @@
           <a class="work__anchor" href="https://tsux.me/blog/">tsux.me ブログ</a>
           <p class="work__text">
             Python/Djangoでブログシステムを構築しました。<br>
-            WEB関係やその他、僕の興味のままに記事を書いていこうと思います。<br>
+            WEB関係やその他、僕の興味のままに記事を書いていこうと思ってます。<br>
             備忘録のようなものでもあります。
         <li class="work__item">
-          <a class="work__anchor" href="https://code-essay.com/">Codessay</a>
+          <a class="work__anchor">Codessay</a>
+          <!-- <a class="work__anchor" href="https://code-essay.com/">Codessay</a> -->
           <p class="work__text">
-            Python/Djangoで作成した、ノート共有アプリです。<br>
+            Python/Djangoで作成中のノート共有アプリです。<br>
             Markdown,Latexが簡単に使え、数式もレポートも論文もブログのようにかけ、共有できます。
         <li class="work__item">
-          <a class="work__anchor" href="https://lavap.net/">Lavap！</a>
+          <a class="work__anchor">Lavap！</a>
+          <!-- <a class="work__anchor" href="https://lavap.net/">Lavap！</a> -->
           <p class="work__text">
             Python/Djangoで作成中のトイレマップです。<br>
-            全国どこでも近くのトイレが探せます。今年中には公開、アプリ化もする予定です。
+            全国どこでも近くのトイレが探せます。
       </ul>
     </div>
   </section>
-  {% include './frontparts/footer.html' %}
+  <footer class="footer">
+    <span class="footer__copyright">©️ 2019 tsux</span>
+  </footer>
 </body>
 </html>
