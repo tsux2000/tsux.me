@@ -1,32 +1,48 @@
 import datetime
-from blog.models import Article, Category, Tag
+from blog.models import Article, Category
 from django.utils import timezone
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
 from django.views.generic import TemplateView, ListView
 
-class ArticleView(TemplateView):
+
+class IndexView (TemplateView):
 
     template_name = 'blog/index.html'
     categories = Category.objects.filter(del_flg=False)
-    tags = Tag.objects.filter(del_flg=False)
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
-        self.article = get_object_or_404(Article, slug=kwargs.get('article_slug'), private_flg=False, del_flg=False)
+        self.article = get_object_or_404(Article, slug='top')
+        context.update({
+            'title': self.article.title,
+            'article': self.article,
+            'categories': self.categories,
+            'dates': Article.objects.filter(create_date__lte=timezone.now()).dates('create_date', 'month', order='DESC'),
+        })
+        return context
+
+
+class ArticleView(TemplateView):
+
+    template_name = 'blog/article.html'
+    categories = Category.objects.filter(del_flg=False)
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        self.article = get_object_or_404(Article, slug=kwargs.get('article_slug'), del_flg=False)
         self.process_session()
-        base_url = self.request.scheme + '://' + self.request.get_host() + '/blog/'
+        base_url = self.request.scheme + '://' + self.request.get_host()
         self.breadcrumb = [
             {'url': base_url, 'name': 'TOP'},
-            {'url': base_url + 'category/' + self.article.category.slug + '/', 'name': self.article.category.name},
-            {'url': base_url + self.article.slug + '/', 'name': self.article.title},
+            {'url': base_url + '/category/' + self.article.category.slug + '/', 'name': self.article.category.name},
+            {'url': base_url + '/' + self.article.slug + '/', 'name': self.article.title},
         ]
         context.update({
             'title': self.article.title,
             'breadcrumb': self.breadcrumb,
             'article': self.article,
             'categories': self.categories,
-            'tags': self.tags,
             'dates': Article.objects.filter(create_date__lte=timezone.now()).dates('create_date', 'month', order='DESC'),
         })
         return context
@@ -47,22 +63,20 @@ class ArticleListView(ListView):
     model = Article
     paginate_by = 6
     categories = Category.objects.filter(del_flg=False)
-    tags = Tag.objects.filter(del_flg=False)
     title = '検索結果'
     breadcrumb = []
 
     def get_queryset(self):
-        articles = self.model.objects.filter(private_flg=False, del_flg=False).order_by(self.request.GET.get('order', '-views'))
+        articles = self.model.objects.filter(del_flg=False).order_by(self.request.GET.get('order', '-views'))
         category_slug = self.request.GET.get('category', self.kwargs.get('category_slug'))
-        tag_slug = self.request.GET.get('tag', '')
-        year_and_month = self.request.GET.get('archive', '').split('-')
+        year_and_month = self.request.GET.get('archive', '').split('_')
         keywords = self.request.GET.get('keywords', '').replace('　', ' ').split()
-        base_url = self.request.scheme + '://' + self.request.get_host() + '/blog/'
+        base_url = self.request.scheme + '://' + self.request.get_host()
         self.breadcrumb = [{'url': base_url, 'name': 'TOP'}]
         if len(year_and_month) == 2:
             articles = articles.filter(create_date__year=year_and_month[0], create_date__month=year_and_month[1])
             self.breadcrumb.append({
-                'url': base_url + '?archive=' + '-'.join(year_and_month),
+                'url': base_url + '?archive=' + '_'.join(year_and_month),
                 'name': '/'.join(year_and_month)
             })
             self.title = '年'.join(year_and_month) + '月のアーカイブ'
@@ -70,20 +84,12 @@ class ArticleListView(ListView):
             category = get_object_or_404(self.categories, slug=category_slug)
             articles = articles.filter(category=category)
             self.breadcrumb.append({
-                'url': base_url + 'category/' + category.slug + '/',
+                'url': base_url + '/category/' + category.slug + '/',
                 'name': '「' + category.name + '」カテゴリ'
             })
             self.title = '「' + category.name + '」カテゴリ'
         else:
             self.title = '記事一覧'
-        if tag_slug:
-            tag = get_object_or_404(self.tags, slug=tag_slug)
-            articles = articles.filter(tag=tag)
-            self.breadcrumb.append({
-                'url': base_url + '?tag=' + tag.slug,
-                'name': '「' + tag.name + '」タグ'
-            })
-            self.title = '検索結果'
         if keywords:
             for i in keywords:
                 articles = articles.filter(Q(title__icontains=i) | Q(contents__icontains=i) | Q(description__icontains=i))
@@ -100,8 +106,6 @@ class ArticleListView(ListView):
             'title': self.title,
             'breadcrumb': self.breadcrumb,
             'categories': self.categories,
-            'tags': self.tags,
             'dates': Article.objects.filter(create_date__lte=timezone.now()).dates('create_date', 'month', order='DESC'),
         })
         return context
-

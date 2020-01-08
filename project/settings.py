@@ -11,7 +11,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'blog.apps.BlogConfig',
-    'portfolio.apps.PortfolioConfig',
+    'markdownx', # マークダウン記法を扱うサードパーティ
 ]
 
 MIDDLEWARE = [
@@ -73,3 +73,11 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
+
+# マークダウン設定
+MARKDOWNX_MARKDOWN_EXTENSIONS = [
+    'markdown.extensions.toc', # TOC
+    'markdown.extensions.extra',  # Fenced Code Blocks
+    'gfm', # py-gfm
+]
+

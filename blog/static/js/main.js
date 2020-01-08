@@ -17,26 +17,4 @@ $(function() {
     $(this).siblings().find('.js-panel-nav__button[checked=checked]').attr('checked', false);
     $(this).addClass('panel-nav__menu-item--checked').find('.js-panel-nav__button').attr('checked', true);
   });
-
-  // --- Markdown, MathJax 関連 ---
-
-  // marked 設定
-  marked.setOptions({
-    gfm: true,
-    tables: true,
-    breaks: false,
-    pedantic: false,
-    sanitize: true,
-    smartLists: true,
-    smartypants: false,
-    langPrefix: 'language-',
-  });
-
-  var $target = $('#js-article__contents');
-
-  // テキストエリアにコードを取得
-  if (!$('#js-article__contents').val()) $('#js-article__contents').val($target.text().trim());
-  var code = marked($target.text().trim().replace('\\\\', '\\\\\\\\'));
-  $target.html(code.replace('\\\\\\\\', '\\\\'));
-
 });

@@ -3,28 +3,40 @@
 <html lang = "ja">
   <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE = edge">
-    <meta name="viewport" content="width = device-width, initial-scale = 1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="robots" content="index,follow">
     <meta name="format-detection" content="email=no,telephone=no,address=no">
     <link rel="shortcut icon" href="{% static 'img/favicon.ico' %}" type="image/x-icon">
-    <!-- google fonts -->
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=M+PLUS+Rounded+1c">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rancho&display=swap">
+    <!-- fontawesome -->
+    <script src="https://kit.fontawesome.com/18839ef28e.js" crossorigin="anonymous"></script>
     <!-- jquery -->
-    <script type="text/javascript" src="{% static 'js/jquery.min.js' %}"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <!-- google fonts -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=M+PLUS+1p">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Rancho&display=swap">
     <!-- general -->
-    <link rel="stylesheet" href="{% static 'css/main.css' %}">
+    <link rel="stylesheet" href="{% static 'css/main.css' %}?{% now 'YmdHis' %}">
     <script type="text/javascript" src="{% static 'js/main.js' %}"></script>
-    <script type="text/javascript" src="{% static 'js/marked.js' %}"></script>
-    <title>{{ title }} | tsux.me ブログ</title>
+    <!-- mathjax -->
+    <script type="text/x-mathjax-config">
+      MathJax.Hub.Config({tex2jax: {
+        inlineMath: [['$','$']],
+        displayMath: [['$$','$$']],
+      }});
+    </script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.0/MathJax.js?config=TeX-AMS_CHTML"></script>
+    <!-- highlight -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/styles/default.min.css">
+    <script src="//cdn.jsdelivr.net/gh/highlightjs/cdn-release@9.17.1/build/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <title>{{ title }} | tsux.me</title>
   </head>
   <body>
     <header class="header">
       <i class="fas fa-bars header__panel-button" id="js-header__panel-button"></i>
       <h1 class="header__h1">
         <a class="header__title" href="{{ request.scheme }}://{{ request.get_host }}/">tsux.me</a>
-        <span class="header__subtitle">ブログ</span>
       </h1>
     </header>
     {% include './frontparts/panel.html' %}
@@ -34,7 +46,7 @@
       {% include './frontparts/nav.html' %}
     </section>
     <footer class="footer">
-      <span class="footer__copyright">©️ 2019 tsux</span>
+      <span class="footer__copyright">©️ 2020 tsux</span>
     </footer>
   </body>
 </html>

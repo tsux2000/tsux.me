@@ -1,7 +1,6 @@
 from django.contrib import admin
-from blog.models import Article, Attachment, Category, Tag
+from markdownx.admin import MarkdownxModelAdmin
+from blog.models import Article, Category
 
-admin.site.register(Article)
-admin.site.register(Attachment)
+admin.site.register(Article, MarkdownxModelAdmin)
 admin.site.register(Category)
-admin.site.register(Tag)
