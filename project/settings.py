@@ -10,6 +10,8 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'django.contrib.sites',  # 追加
+    'django.contrib.sitemaps',  # 追加
     'blog.apps.BlogConfig',
     'markdownx', # マークダウン記法を扱うサードパーティ
 ]
@@ -81,3 +83,4 @@ MARKDOWNX_MARKDOWN_EXTENSIONS = [
     'gfm', # py-gfm
 ]
 
+SITE_ID = 1
