@@ -11,7 +11,7 @@ class ArticleSitemap(Sitemap):
         return Article.objects.filter(del_flg=False)
 
     def location(self, obj):
-        return resolve_url('article', pk=obj.slug)
+        return resolve_url('article', article_slug=obj.slug)
 
     def lastmod(self, obj):
         return obj.create_date
@@ -22,10 +22,10 @@ class IndexSitemap(Sitemap):
     priority = 0.5
 
     def items(self):
-        return ['index']
+        return Article.objects.filter(slug='top')
 
     def location(self, obj):
-        return resolve_url(obj)
+        return resolve_url('index')
 
     def lastmod(self, obj):
         return obj.create_date
