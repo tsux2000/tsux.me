@@ -2,6 +2,6 @@
 {% load static %}
 {% block contents %}
 <article class="article">
-  <div class="md">{{ article.get_markdown | safe }}</div>
+  <div class="md">{{ object.get_markdown | safe }}</div>
 </article>
 {% endblock %}

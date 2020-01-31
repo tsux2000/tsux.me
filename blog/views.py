@@ -17,6 +17,7 @@ class IndexView(generic.TemplateView):
         context = super().get_context_data(**kwargs)
         context.update({
             'meta': {'title': 'tsux.me',},
+            'object': models.Article.objects.get(slug='top'),
             'categories': self.categories,
             'dates': models.Article.objects.filter(create_date__lte=timezone.now()).dates('create_date', 'month', order='DESC'),
         })
