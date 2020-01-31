@@ -1,7 +1,13 @@
 #!/usr/bin/env python
+
+"""
+Django's Command-line Utility for Administrative Tasks
+"""
+
 import os
 import sys
 
+sys.dont_write_bytecode = True
 
 def main():
     os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'project.settings')
@@ -14,7 +20,6 @@ def main():
             "forget to activate a virtual environment?"
         ) from exc
     execute_from_command_line(sys.argv)
-
 
 if __name__ == '__main__':
     main()

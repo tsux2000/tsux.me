@@ -26,11 +26,17 @@
   text-align: center;
 }
 
-.nav__anchor {
-  color: #333;
-  border-bottom: 1px dotted #333;
-  font-size: 18px;
-  line-height: 2.2;
+.nav__auth-sns {
+  display: flex;
+  justify-content: space-around;
+  padding: 5px 20px 10px;
+  width: 220px;
+}
+
+.nav__sns-img {
+  border-radius: 50%;
+  height: 40px;
+  width: 40px;
 }
 
 .nav__auth-img {

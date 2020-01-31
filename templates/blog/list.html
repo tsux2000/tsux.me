@@ -4,9 +4,7 @@
 <section class="article">
   <nav class="article-list">
   <ul class="breadcrumb">
-    {% for item in breadcrumb %}
-    <li><a class="breadcrumb__item" href="{{ item.url }}">{{ item.name }}</a>
-    {% endfor %}
+    <li><a class="breadcrumb__item" href="{% url 'index' %}">TOP</a>
   </ul>
   <h2 class="article-list__title">{{ title }}</h2>
   <span class="article-list__article-number">{{ page_obj.start_index }}{% if page_obj.start_index != page_obj.end_index %} 〜 {{ page_obj.end_index }}{% endif %}件 / {{ page_obj.paginator.count }}件中</span>
@@ -23,7 +21,6 @@
         {% if item.create_date != item.update_date %}
         / 更新日 {{ item.update_date }}
         {% endif %}
-        / <i class="fas fa-eye"></i> {{ item.views }}
       </p>
       </div>
     </a>

@@ -1,0 +1,54 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block contents %}
+<article class="article">
+  <ul class="breadcrumb">
+    <li><a class="breadcrumb__item" href="{% url 'index' %}">TOP</a>
+    <li><a class="breadcrumb__item" href="{% url 'category' object.category.slug %}">{{ object.category.name }}</a>
+  </ul>
+  <div class="md">{{ object.get_markdown | safe }}</div>
+  <div>
+    <span class="article__date-item">投稿日 {{ object.create_date }}</span>
+    {% if object.create_date != object.update_date %}
+    <span class="article__date-item">更新日 {{ object.update_date }}</span>
+    {% endif %}
+    <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+    <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+    <a href="https://note.com/intent/social_button" class="note-social-button"
+      data-url="{% url 'article' object.slug %}"></a>
+    <script async src="https://cdn.st-note.com/js/social_button.min.js"></script>
+  </div>
+  <div class="comments">
+    <h2 class="comments__title">COMMENT</h2>
+    <form action="{% url 'comment' %}" method="post" class="comments__form">
+      {% csrf_token %}
+      <input type="text" name="name" placeholder="名無し">
+      <input type="hidden" name="article" value="{{ object.pk }}">
+      <textarea name="contents" placeholder="コメントを入力してください。" required></textarea>
+      <button type="submit">SUBMIT</button>
+    </form>
+    {% for item in object.comment_set.all %}
+    {% if not item.parent %}
+      <div class="comments__box">
+        <span class="comments__name">{{ item.name }}</span>
+        <div class="md">{{ item.get_markdown | safe }}</div>
+        <span class="comments__link  js-comments__open">返信する</span>
+        <form action="{% url 'comment' %}" method="post" class="comments__form  js-comments__form">
+          {% csrf_token %}
+          <input type="text" name="name" placeholder="名無し">
+          <input type="hidden" name="parent" value="{{ item.pk }}">
+          <input type="hidden" name="article" value="{{ object.pk }}">
+          <textarea name="contents" placeholder="コメントを入力してください。" required></textarea>
+          <button type="submit">SUBMIT</button>
+        </form>
+        {% with child_comments=item.comment_set.all %}
+        {% include 'blog/comment.html' %}
+        {% endwith %}
+      </div>
+    {% endif %}
+    {% empty %}
+    <p>コメントはありません</p>
+    {% endfor %}
+  </div>
+</article>
+{% endblock %}

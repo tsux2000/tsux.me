@@ -1,0 +1,18 @@
+{% for item in child_comments %}
+<div class="comments__box">
+  <span class="comments__name">{{ item.name }}</span>
+  <div class="md">{{ item.get_markdown | safe }}</div>
+  <span class="comments__link  js-comments__open">返信する</span>
+  <form action="{% url 'comment' %}" method="post" class="comments__form js-comments__form">
+    {% csrf_token %}
+    <input type="text" name="name" placeholder="名無し">
+    <input type="hidden" name="parent" value="{{ item.pk }}">
+    <input type="hidden" name="article" value="{{ object.pk }}">
+    <textarea name="contents" placeholder="コメントを入力してください。" required></textarea>
+    <button type="submit">SUBMIT</button>
+  </form>
+  {% with child_comments=item.comment_set.all %}
+  {% include 'blog/comment.html' %}
+  {% endwith %}
+</div>
+{% endfor %}

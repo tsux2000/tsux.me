@@ -1,6 +1,8 @@
+
+from blog import models
 from django.contrib import admin
 from markdownx.admin import MarkdownxModelAdmin
-from blog.models import Article, Category
 
-admin.site.register(Article, MarkdownxModelAdmin)
-admin.site.register(Category)
+admin.site.register(models.Article, MarkdownxModelAdmin)
+admin.site.register(models.Category)
+admin.site.register(models.Comment, MarkdownxModelAdmin)

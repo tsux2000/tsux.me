@@ -1,28 +1,20 @@
-# for Mac
+# General
+.vscode
 .DS_Store
-
-# chash of Python
-__pycache__/
+__pycache__
 *.pyc
 
-# editor setting files
-.vscode/
+# Python3 Virtual Environment
+venv/
 
-# Django static files
+# Django Statics and Medias
 /static/
-media/
+/media/
 
-# Django stuff
+# Django Local Settings
+local.py
+
+# Django Local Database Files
 **/migrations/*
 !**/migrations/__init__.py
 db.sqlite3
-
-# Django local settings file
-local.py
-
-# virtual environment
-venv/
-
-# socket file
-*.sock
-

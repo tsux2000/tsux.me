@@ -5,10 +5,6 @@
       <input class="panel-nav__search" id="js-panel-nav__search" name="keywords" type="text" placeholder="記事を検索">
       <ul class="panel-nav__menu">
         <li class="panel-nav__menu-item panel-nav__menu-item--checked js-panel-nav__menu-item">
-          <input class="panel-nav__item-hide js-panel-nav__button" type="radio" name="order" value="-views" checked="checked">
-          <label for="all">おすすめ順</label>
-        </li>
-        <li class="panel-nav__menu-item js-panel-nav__menu-item">
           <input class="panel-nav__item-hide js-panel-nav__button" type="radio" name="order" value="-create_date">
           <label for="new">新着順</label>
         </li>
@@ -23,10 +19,12 @@
           <label for="all">カテゴリ指定なし</label>
         </li>
         {% for item in categories %}
+        {% if item.article_set.count %}
         <li class="panel-nav__menu-item js-panel-nav__menu-item">
           <input class="panel-nav__item-hide js-panel-nav__button" type="radio" name="category" value="{{ item.slug }}">
           <label for="{{ item.slug }}">{{ item.name }}</label>
         </li>
+        {% endif %}
         {% endfor %}
       </ul>
       <button class="panel-nav__submit" id="js-panel-nav__submit" type="submit">Search <i class="fas fa-search"></i></button>

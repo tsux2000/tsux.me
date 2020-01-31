@@ -1,21 +1,27 @@
+"""
+Django Base Settings
+"""
+
 import os
-from .local import *
 
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+# Base directory
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+# Applications
 INSTALLED_APPS = [
+    'blog.apps.BlogConfig', #Added
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'django.contrib.sites',  # 追加
-    'django.contrib.sitemaps',  # 追加
-    'blog.apps.BlogConfig',
-    'markdownx', # マークダウン記法を扱うサードパーティ
+    'django.contrib.sites',  # Added
+    'django.contrib.sitemaps',  # Added
+    'markdownx', # Added
 ]
 
+# Middlewares
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -26,12 +32,14 @@ MIDDLEWARE = [
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
+# URL Rooting
 ROOT_URLCONF = 'project.urls'
 
+# Templates
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -44,8 +52,10 @@ TEMPLATES = [
     },
 ]
 
+# WSGI Application
 WSGI_APPLICATION = 'project.wsgi.application'
 
+# Password Validators
 AUTH_PASSWORD_VALIDATORS = [
     {
         'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator',
@@ -61,22 +71,22 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
+# Environments
 LANGUAGE_CODE = 'ja'
 TIME_ZONE = 'Asia/Tokyo'
-
 USE_I18N = True
 USE_L10N = True
 USE_TZ = True
 
+# Statics
 STATIC_URL = '/static/'
 STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'assets'),]
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
-SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
-
-# マークダウン設定
+# MarkdownX
 MARKDOWNX_MARKDOWN_EXTENSIONS = [
     'markdown.extensions.toc', # TOC
     'markdown.extensions.extra',  # Fenced Code Blocks

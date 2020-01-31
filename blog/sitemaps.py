@@ -1,4 +1,5 @@
-from blog.models import Article, Category
+
+from blog import models
 from django.contrib.sitemaps import Sitemap
 from django.shortcuts import resolve_url
 
@@ -8,7 +9,7 @@ class ArticleSitemap(Sitemap):
     priority = 0.5
 
     def items(self):
-        return Article.objects.filter(del_flg=False)
+        return models.Article.objects.filter(del_flg=False)
 
     def location(self, obj):
         return resolve_url('article', article_slug=obj.slug)
@@ -21,13 +22,13 @@ class CategorySitemap(Sitemap):
     priority = 0.5
 
     def items(self):
-        return Category.objects.filter(del_flg=False)
+        return models.Category.objects.filter(del_flg=False)
 
     def location(self, obj):
         return resolve_url('category', category_slug=obj.slug)
 
     def lastmod(self, obj):
-        return obj.create_date
+        return obj.upate_date
 
 
 class IndexSitemap(Sitemap):
@@ -35,7 +36,7 @@ class IndexSitemap(Sitemap):
     priority = 0.5
 
     def items(self):
-        return Article.objects.filter(slug='top')
+        return models.Article.objects.filter(slug='top')
 
     def location(self, obj):
         return resolve_url('index')

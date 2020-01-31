@@ -17,4 +17,11 @@ $(function() {
     $(this).siblings().find('.js-panel-nav__button[checked=checked]').attr('checked', false);
     $(this).addClass('panel-nav__menu-item--checked').find('.js-panel-nav__button').attr('checked', true);
   });
+
+  // コメントフォームの表示・非表示
+  $('.js-comments__form').hide();
+  $('.js-comments__open').on('click touched', function () {
+    $('.js-comments__form').hide();
+    $(this).next('.js-comments__form').show();
+  });
 });

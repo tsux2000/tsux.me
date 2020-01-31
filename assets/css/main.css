@@ -8,6 +8,7 @@
 @import url(./frontparts/nav.css);
 @import url(./frontparts/footer.css);
 @import url(./layout.css);
+@import url(./comments.css);
 
 html {
   background: #ddd;

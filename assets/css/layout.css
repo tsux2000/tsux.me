@@ -113,7 +113,6 @@
 .md code,
 .md kbd,
 .md samp {
-  color: #333;
   font-family: monospace;
   font-size: 0.98em;
 }
@@ -126,7 +125,6 @@
 }
 
 .md code {
-  background: #eee;
   border-radius: 3px;
   margin: 0 0.5em;
   padding: 0 0.5em;
