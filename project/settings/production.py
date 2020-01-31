@@ -9,17 +9,17 @@ from .base import *
 DEBUG = False
 
 # Hosts
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['tsux.me', 'www.tsux.me', '3.114.185.165']
 
 # DB
 DATABASES = {
     'default': {
-        'ENGINE': '＊＊＊＊＊＊',
-        'NAME': '＊＊＊＊＊＊',
-        'USER': '＊＊＊＊＊＊',
-        'PASSWORD': '＊＊＊＊＊＊',
-        'HOST': '＊＊＊＊＊＊',
-        'PORT': '＊＊＊＊＊＊',
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'db_tsux',
+        'USER': 'tsux',
+        'PASSWORD': 'tsux',
+        'HOST': 'localhost',
+        'PORT': '',
     }
 }
 
