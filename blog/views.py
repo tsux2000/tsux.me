@@ -58,7 +58,7 @@ class ArticleListView(generic.ListView):
         keywords = self.request.GET.get('keywords', '').replace('　', ' ').split()
         if len(year_and_month) == 2:
             articles = articles.filter(create_date__year=year_and_month[0], create_date__month=year_and_month[1])
-            self.title = '{0[0]}年{0[1]}月のアーカイブ'.join(year_and_month)
+            self.title = '{0[0]}年{0[1]}月のアーカイブ'.format(year_and_month)
         elif category_slug:
             category = get_object_or_404(self.categories, slug=category_slug)
             articles = articles.filter(category=category)
