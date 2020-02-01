@@ -39,10 +39,10 @@ class IndexSitemap(Sitemap):
     priority = 0.5
 
     def items(self):
-        return models.Article.objects.filter(slug='top')
+        return models.Article.objects.filter(del_flg=False).order_by('-update_date')[0]
 
     def location(self, obj):
         return resolve_url('index')
 
     def lastmod(self, obj):
-        return obj.create_date
+        return obj.update_date
