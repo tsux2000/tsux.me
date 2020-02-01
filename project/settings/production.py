@@ -6,7 +6,7 @@ import os
 from .base import *
 
 # Debug
-DEBUG = True
+DEBUG = False
 
 # Hosts
 ALLOWED_HOSTS = ['tsux.me', 'www.tsux.me', '3.114.185.165']
