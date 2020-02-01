@@ -3,6 +3,8 @@ from blog import models
 from django.contrib.sitemaps import Sitemap
 from django.shortcuts import resolve_url
 
+import datetime
+
 class ArticleSitemap(Sitemap):
     changefreq = "never"
     priority = 0.5
@@ -39,10 +41,13 @@ class IndexSitemap(Sitemap):
     priority = 0.5
 
     def items(self):
-        return models.Article.objects.filter(del_flg=False).order_by('-update_date')[0]
+        return [{
+            'url': resolve_url('index'),
+            'update': datetime.datetime(2020, 2, 1)
+        }]
 
     def location(self, obj):
-        return resolve_url('index')
+        return obj['url']
 
     def lastmod(self, obj):
-        return obj.update_date
+        return obj['update']
