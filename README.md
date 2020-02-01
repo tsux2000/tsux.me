@@ -50,6 +50,14 @@ GRANT ALL PRIVILEGES ON DATABASE db_tsux TO tsux;
 \q
 ```
 
+`local.py` の用意。
+また、 `SECRET_KEY` の作成は、以下でできる。
+
+```python
+from django.core.management.utils import get_random_secret_key
+get_random_secret_key()
+```
+
 Django おきまりのやつ。
 
 ```bash
@@ -59,6 +67,8 @@ python manage.py makemigrations
 python manage.py migrate
 python manage.py createsuperuser
 ```
+
+`sudo vim /etc/systemd/system/gunicorn.service` で以下のように編集。
 
 ```bash
 [Unit]
@@ -75,21 +85,38 @@ ExecStart=/home/ubuntu/project/venv/bin/gunicorn --access-logfile - --workers 3 
 WantedBy=multi-user.target
 ```
 
+`sudo systemctl start gunicorn.service` で読み込みなど。
+`sudo systemctl enable gunicorn` で自動起動設定も。
+
+また、 `sudo vim /etc/nginx/sites-available/project` も編集。
+
 ```bash
 server {
-        listen 80;
-        server_name 3.114.185.165;
+    listen 80;
+    server_name tsux.me;
 
-        location = /favicon.ico {access_log off; log_not_found off;}
-        location /static/ {
-                root /home/ubuntu/project;
-        }
-        location /media/ {
-                root /home/ubuntu/project;
-        }
-        location / {
-                include proxy_params;
-                proxy_pass http://unix:/home/ubuntu/project/project.sock;
-        }
+    location = /favicon.ico {access_log off; log_not_found off;}
+    location /static/ {
+        root /home/ubuntu/project;
+    }
+    location /media/ {
+        root /home/ubuntu/project;
+    }
+    location / {
+        include proxy_params;
+        proxy_pass http://unix:/home/ubuntu/project/project.sock;
+    }
 }
 ```
+
+`sudo ln -s /etc/nginx/sites-available/project /etc/nginx/sites-enabled/` でリンクはる。
+`sudo ufw allow 'Nginx Full'` でポート開ける。
+
+以下で更新。
+
+```bash
+sudo systemctl restart nginx
+sudo systemctl restart gunicorn
+```
+
+certbotなども設定し、 https 化する。

@@ -22,6 +22,3 @@ DATABASES = {
         'PORT': '',
     }
 }
-
-# Secret Key: Set with shell environment valiable
-SECRET_KEY = os.environ.get('SECRET_KEY')
