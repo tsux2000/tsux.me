@@ -6,6 +6,17 @@
   width: 100%;
 }
 
+.footer__anchors {
+  display: inline-block;
+  margin: 0 20px 0 0;
+}
+
+.footer__anchor {
+  color: #888;
+  font-size: 14px;
+  text-decoration: underline;
+}
+
 .footer__copyright {
   color: #888;
   font-size: 14px;
