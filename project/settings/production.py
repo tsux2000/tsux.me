@@ -9,7 +9,7 @@ from .base import *
 DEBUG = False
 
 # Hosts
-ALLOWED_HOSTS = ['tsux.me']
+ALLOWED_HOSTS = ['tsux.me', '3.114.185.165']
 
 # DB
 DATABASES = {
