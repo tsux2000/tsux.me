@@ -109,6 +109,7 @@ html {
 
 .top-page__contents table {
   width: 100%;
+  padding: 30px 0 20px;
 }
 
 .top-page__contents tr td:first-child {
