@@ -121,6 +121,7 @@
   margin: 1em;
   white-space: pre;
   overflow: scroll;
+  line-height: 1.4;
 }
 
 .md code {
