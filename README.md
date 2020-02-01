@@ -19,7 +19,7 @@ sudo apt upgrade
 sudo apt install update-manager-core
 sudo do-release-upgrade -d
 # 必要なパッケージインストール
-sudo apt install python3-pip python3-dev libpq-dev postgresql postgresql-contrib nginx
+sudo apt install python3-pip python3-dev python3-venv libpq-dev postgresql postgresql-contrib nginx
 sudo apt autoremove
 # プロジェクトフォルダを用意・移動
 cd ~
