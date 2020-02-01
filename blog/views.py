@@ -8,16 +8,17 @@ from django.views import generic
 
 import datetime
 
-class IndexView(generic.TemplateView):
+class IndexView(generic.ListView):
 
     template_name = 'blog/index.html'
     categories = models.Category.objects.filter(del_flg=False)
+    paginate_by = 6
+    queryset = models.Article.objects.filter(del_flg=False).order_by('-create_date')
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
         context.update({
             'meta': {'title': 'tsux.me',},
-            'object': models.Article.objects.get(slug='top'),
             'categories': self.categories,
             'dates': models.Article.objects.filter(create_date__lte=timezone.now()).dates('create_date', 'month', order='DESC'),
         })

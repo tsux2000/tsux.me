@@ -1,7 +1,139 @@
 {% extends 'blog/base.html' %}
 {% load static %}
 {% block contents %}
-<article class="article">
-  <div class="md">{{ object.get_markdown | safe }}</div>
-</article>
+
+<div class="articles-wrap">
+  <article class="article bg">
+    <ul class="top-page" id="js-top-page">
+      <li class="top-page__item top-page__item--selected js-top-page__item">
+        <div class="top-page__contents">
+          <h1 class="top-page__title">tsux.me</h1>
+          <p class="top-page__text">
+            どうも、尽（ tsux / ツクス ）です。<br>
+            学生ながらにエンジニアやらせてもらってます。<br>
+            この <a href="https://tsux.me/">tsux.me</a> は僕が作ったブログ、兼、ポートフォリオサイトです。<br>
+            現役京大生エンジニアとしての経験や知識を記事にしてます。<br>
+            主にエンジニア向けの記事。雑記・備忘録も少々。<br>
+            くつろいでってください。<br>
+          </p>
+        </div>
+      </li>
+      <li class="top-page__item js-top-page__item">
+        <div class="top-page__contents">
+          <h2 class="top-page__title">ABOUT</h2>
+          <table>
+            <tbody>
+              <tr>
+                <td><span class="marker">NAME</span></td>
+                <td>遠藤 尽 （ tsux / ツクス ）</td>
+              </tr>
+              <tr>
+                <td><span class="marker">BIRTH</span></td>
+                <td>2000/03/22</td>
+              </tr>
+              <tr>
+                <td><span class="marker">FROM</span></td>
+                <td>おんせん県おおいた（大分県）</td>
+              </tr>
+              <tr>
+                <td><span class="marker">LIVE</span></td>
+                <td>京都府</td>
+              </tr>
+              <tr>
+                <td><span class="marker">EDUCATION</span></td>
+                <td>京都大学 情報学科 現2回生</td>
+              </tr>
+              <tr>
+                <td><span class="marker">MAIL</span></td>
+                <td><a href="mailto:tsux2000@gmail.com">tsux2000@gmail.com</a></td>
+              </tr>
+              <tr>
+                <td><span class="marker">LIKE</span></td>
+                <td>
+                  <ul>
+                    <li>バスケットボール</li>
+                    <li>WEB開発</li>
+                    <li>機械学習</li>
+                    <li>料理</li>
+                    <li>投資</li>
+                    <li>釣り</li>
+                    <p>...などなど多趣味です。</p>
+                  </ul>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </li>
+      <li class="top-page__item js-top-page__item">
+        <ul class="top-page__contents">
+          <h2 class="top-page__title">SNS</h2>
+          <li class="top-page__sns">
+            <a href="https://twitter.com/tsux2000" class="top-page__sns-link">
+              <img src="{% static 'img/sns_twitter.png' %}" alt="twitter">Twitter
+            </a>
+            <span>面白いことつぶやけるようになりたい...</span>
+          </li>
+          <li class="top-page__sns">
+            <a href="https://note.com/tsux2000" class="top-page__sns-link">
+              <img src="{% static 'img/sns_note.jpg' %}" alt="note">note
+            </a>
+            <span>ここの記事は note にも投稿していることが多いです。</span>
+          </li>
+          <li class="top-page__sns">
+            <a href="https://github.com/tsux2000" class="top-page__sns-link">
+              <img src="{% static 'img/sns_github.png' %}" alt="github">GitHub
+            </a>
+            <span>ガラクタです。</span>
+          </li>
+        </ul>
+      </li>
+    </ul>
+    <ul class="index">
+      <li class="index__item index__item--selected js-index__item">MESSAGE</li>
+      <li class="index__item js-index__item">ABOUT</li>
+      <li class="index__item js-index__item">SNS</li>
+    </ul>
+  </article>
+  <section class="article">
+    <nav class="article-list">
+    <h2 class="article-list__title">最近の記事</h2>
+    <span class="article-list__article-number">{{ page_obj.start_index }}{% if page_obj.start_index != page_obj.end_index %} 〜 {{ page_obj.end_index }}{% endif %}件 / {{ page_obj.paginator.count }}件中</span>
+    {% for item in object_list %}
+    <article>
+      <a class="article-list__item" href="{% url 'article' item.slug %}">
+        {% if item.thumbnail %}
+        <img class="article-list__thumb" src="{{ item.thumbnail.url }}" alt="{{ item.title }}">
+        {% endif %}
+        <div>
+        <h6 class="article-list__item-title">{{ item.title }}</h6>
+        <p>
+          投稿日 {{ item.create_date }}
+          {% if item.create_date != item.update_date %}
+          / 更新日 {{ item.update_date }}
+          {% endif %}
+        </p>
+        </div>
+      </a>
+    </article>
+    {% endfor %}
+    <ul class="list__page-nav">
+      {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}">前へ</a>
+      {% endif %}
+      {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+      <li><span class="list__page-nav-item">{{ num }}</span></li>
+      {% else %}
+      <li><a class="list__page-nav-item" href="?page={{ num }}">{{ num }}</a></li>
+      {% endif %}
+      {% endfor %}
+      {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}">次へ</a>
+      {% endif %}
+    </ul>
+    </nav>
+  </section>
+</div>
+
 {% endblock %}

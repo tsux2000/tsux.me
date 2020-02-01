@@ -24,4 +24,12 @@ $(function() {
     $('.js-comments__form').hide();
     $(this).next('.js-comments__form').show();
   });
+
+  $('.js-index__item').on('click touched', function () {
+    $('.index__item--selected').removeClass('index__item--selected');
+    $(this).addClass('index__item--selected');
+    var index = String($('.js-index__item').index(this));
+    $('.js-top-page__item').hide();
+    $($('#js-top-page').children()[index]).show();
+  });
 });
