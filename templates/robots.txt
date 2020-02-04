@@ -1,0 +1,15 @@
+User-agent: *
+allow: /
+disallow: /list/
+disallow: /blog/
+disallow: /start_django/
+disallow: /django_rest_framework/
+disallow: /category/startup_diary/
+disallow: /category/investment/
+disallow: /category/ai/
+disallow: /category/web/
+disallow: /category/django/
+disallow: /wanna_do_a_startup_1/
+disallow: /stock_trading_1/
+
+sitemap: http://tsux.me/sitemap.xml/
