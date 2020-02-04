@@ -19,7 +19,7 @@ urlpatterns = [
             'articles': sitemaps.ArticleSitemap,
         }
     },  name='sitemap'),
-    path('robots.txt', TemplateView.as_view(template_name="robots.txt", content_type='text/plain')),
+    path('robots.txt/', TemplateView.as_view(template_name="robots.txt", content_type='text/plain')),
     path('markdownx/', include('markdownx.urls')),
     path('', include('blog.urls')),
 ]
