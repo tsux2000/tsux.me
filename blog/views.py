@@ -12,6 +12,11 @@ class IndexView(generic.ListView):
 
     template_name = 'blog/index.html'
     categories = models.Category.objects.filter(del_flg=False)
+    author = models.Author.objects.all()
+    advertisement = [
+        models.Advertisement.objects.filter(display_type=0, del_flg=False),
+        models.Advertisement.objects.filter(display_type=1, del_flg=False),
+    ]
     paginate_by = 6
     queryset = models.Article.objects.filter(del_flg=False).order_by('-create_date')
 
@@ -20,6 +25,8 @@ class IndexView(generic.ListView):
         context.update({
             'meta': {'title': 'tsux.me',},
             'categories': self.categories,
+            'author': self.author,
+            'advertisement': self.advertisement,
             'dates': models.Article.objects.filter(create_date__lte=timezone.now()).dates('create_date', 'month', order='DESC'),
         })
         return context
@@ -29,6 +36,11 @@ class ArticleView(generic.DetailView):
 
     template_name = 'blog/article.html'
     categories = models.Category.objects.filter(del_flg=False)
+    author = models.Author.objects.all()
+    advertisement = [
+        models.Advertisement.objects.filter(display_type=0, del_flg=False),
+        models.Advertisement.objects.filter(display_type=1, del_flg=False),
+    ]
     queryset = models.Article.objects.filter(del_flg=False)
     slug_field = 'slug'
     slug_url_kwarg = 'article_slug'
@@ -39,6 +51,8 @@ class ArticleView(generic.DetailView):
             'meta': {'title': '{} | tsux.me'.format(self.object.title),},
             'title': self.object.title,
             'categories': self.categories,
+            'author': self.author,
+            'advertisement': self.advertisement,
             'dates': models.Article.objects.filter(create_date__lte=timezone.now()).dates('create_date', 'month', order='DESC'),
         })
         return context
@@ -48,7 +62,12 @@ class ArticleListView(generic.ListView):
 
     template_name = 'blog/list.html'
     categories = models.Category.objects.filter(del_flg=False)
-    paginate_by = 6
+    author = models.Author.objects.all()
+    advertisement = [
+        models.Advertisement.objects.filter(display_type=0, del_flg=False),
+        models.Advertisement.objects.filter(display_type=1, del_flg=False),
+    ]
+    paginate_by = 5
     title = '記事一覧'
 
     def get_queryset(self):
@@ -75,6 +94,8 @@ class ArticleListView(generic.ListView):
             'meta': {'title': '{} | tsux.me'.format(self.title),},
             'title': self.title,
             'categories': self.categories,
+            'author': self.author,
+            'advertisement': self.advertisement,
             'dates': models.Article.objects.filter(create_date__lte=timezone.now()).dates('create_date', 'month', order='DESC'),
         })
         return context

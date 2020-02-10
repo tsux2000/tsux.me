@@ -7,7 +7,7 @@
     <li><a class="breadcrumb__item" href="{% url 'category' object.category.slug %}">{{ object.category.name }}</a>
   </ul>
   <div class="md">{{ object.get_markdown | safe }}</div>
-  <div>
+  <div class="article__detailes">
     <span class="article__date-item">投稿日 {{ object.create_date }}</span>
     {% if object.create_date != object.update_date %}
     <span class="article__date-item">更新日 {{ object.update_date }}</span>
@@ -16,6 +16,9 @@
     <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
     <a href="https://note.com/intent/social_button" class="note-social-button" data-url="{% url 'article' object.slug %}"></a>
     <script async src="https://cdn.st-note.com/js/social_button.min.js"></script>
+  </div>
+  <div>
+    {{ advertisement.1.0.code | safe }}
   </div>
   <div class="comments">
     <h2 class="comments__title">COMMENT</h2>

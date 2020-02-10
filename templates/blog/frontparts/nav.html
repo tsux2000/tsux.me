@@ -3,15 +3,11 @@
   <div class="nav__item">
     <span class="nav__title">AUTHOR</span>
     <div class="nav__wrap">
-      <img class="nav__auth-img" src="{% static 'img/author.jpg' %}" alt="著者: tsux">
-      <span class="nav__auth-name">尽＠京大生エンジニア</span>
-      <p class="nav__auth-desc">
-        尽（ tsux / ツクス ）と申します。
-        2000年生。京大情報学科2回生。学生エンジニアやってます。
-        Pythonを中心にWEB開発や機械学習等をやってます。
-        プログラミングを教える立場になるので、知識整理も兼ね、エンジニア向けの記事を中心に1日1本を目標に書きます。
-        Python が好きで、 Django が得意です。
-      </p>
+      <img class="nav__auth-img"
+          src="{% if author.0.icon %}{{ author.0.icon.url }}{% else %}{% static 'img/author.jpg' %}{% endif %}"
+          alt="{{ author.0.name }}">
+      <span class="nav__auth-name">{{ author.0.name }}</span>
+      <p class="nav__auth-desc">{{ author.0.bio }}</p>
       <span class="nav__auth-name">SNS</span>
       <ul class="nav__auth-sns">
         <li>
@@ -43,6 +39,9 @@
       {% endif %}
       {% endfor %}
       </ul>
+  </div>
+  <div class="">
+    {{ advertisement.0.0.code | safe }}
   </div>
   <div class="nav__item">
     <span class="nav__title">ARCHIVE</span>

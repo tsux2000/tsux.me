@@ -59,6 +59,10 @@
   line-height: 2;
 }
 
+.article__detailes {
+  margin-bottom: 10px;
+}
+
 @media (max-width:1000px) {
 
   .article {

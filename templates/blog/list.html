@@ -3,44 +3,47 @@
 {% block contents %}
 <section class="article">
   <nav class="article-list">
-  <ul class="breadcrumb">
-    <li><a class="breadcrumb__item" href="{% url 'index' %}">TOP</a>
-  </ul>
-  <h2 class="article-list__title">{{ title }}</h2>
-  <span class="article-list__article-number">{{ page_obj.start_index }}{% if page_obj.start_index != page_obj.end_index %} 〜 {{ page_obj.end_index }}{% endif %}件 / {{ page_obj.paginator.count }}件中</span>
-  {% for item in object_list %}
-  <article>
-    <a class="article-list__item" href="{% url 'article' item.slug %}">
-      {% if item.thumbnail %}
-      <img class="article-list__thumb" src="{{ item.thumbnail.url }}" alt="{{ item.title }}">
-      {% endif %}
-      <div>
-      <h6 class="article-list__item-title">{{ item.title }}</h6>
-      <p>
-        投稿日 {{ item.create_date }}
-        {% if item.create_date != item.update_date %}
-        / 更新日 {{ item.update_date }}
+    <ul class="breadcrumb">
+      <li><a class="breadcrumb__item" href="{% url 'index' %}">TOP</a>
+    </ul>
+    <h2 class="article-list__title">{{ title }}</h2>
+    <span class="article-list__article-number">{{ page_obj.start_index }}{% if page_obj.start_index != page_obj.end_index %} 〜 {{ page_obj.end_index }}{% endif %}件 / {{ page_obj.paginator.count }}件中</span>
+    {% for item in object_list %}
+    <article>
+      <a class="article-list__item" href="{% url 'article' item.slug %}">
+        {% if item.thumbnail %}
+        <img class="article-list__thumb" src="{{ item.thumbnail.url }}" alt="{{ item.title }}">
         {% endif %}
-      </p>
-      </div>
-    </a>
-  </article>
-  {% endfor %}
-  <ul class="list__page-nav">
-    {% if page_obj.has_previous %}
-    <a href="?page={{ page_obj.previous_page_number }}">前へ</a>
-    {% endif %}
-    {% for num in page_obj.paginator.page_range %}
-    {% if page_obj.number == num %}
-    <li><span class="list__page-nav-item">{{ num }}</span></li>
-    {% else %}
-    <li><a class="list__page-nav-item" href="?page={{ num }}">{{ num }}</a></li>
-    {% endif %}
+        <div>
+        <h6 class="article-list__item-title">{{ item.title }}</h6>
+        <p>
+          投稿日 {{ item.create_date }}
+          {% if item.create_date != item.update_date %}
+          / 更新日 {{ item.update_date }}
+          {% endif %}
+        </p>
+        </div>
+      </a>
+    </article>
     {% endfor %}
-    {% if page_obj.has_next %}
-    <a href="?page={{ page_obj.next_page_number }}">次へ</a>
-    {% endif %}
-  </ul>
+    <ul class="list__page-nav">
+      {% if page_obj.has_previous %}
+      <a href="?page={{ page_obj.previous_page_number }}">前へ</a>
+      {% endif %}
+      {% for num in page_obj.paginator.page_range %}
+      {% if page_obj.number == num %}
+      <li><span class="list__page-nav-item">{{ num }}</span></li>
+      {% else %}
+      <li><a class="list__page-nav-item" href="?page={{ num }}">{{ num }}</a></li>
+      {% endif %}
+      {% endfor %}
+      {% if page_obj.has_next %}
+      <a href="?page={{ page_obj.next_page_number }}">次へ</a>
+      {% endif %}
+    </ul>
+    <div class="advertisement">
+      {{ advertisement.1.0.code | safe }}
+    </div>
   </nav>
 </section>
 {% endblock %}
