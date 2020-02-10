@@ -17,7 +17,7 @@ class IndexView(generic.ListView):
         models.Advertisement.objects.filter(display_type=0, del_flg=False),
         models.Advertisement.objects.filter(display_type=1, del_flg=False),
     ]
-    paginate_by = 6
+    paginate_by = 5
     queryset = models.Article.objects.filter(del_flg=False).order_by('-create_date')
 
     def get_context_data(self, **kwargs):
