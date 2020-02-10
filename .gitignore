@@ -13,6 +13,7 @@ venv/
 
 # Django Local Settings
 local.py
+secret.py
 
 # Django Local Database Files
 **/migrations/*

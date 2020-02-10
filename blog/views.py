@@ -1,6 +1,5 @@
 
 from blog import models, forms
-from django.db.models import Q
 from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect
 from django.utils import timezone
@@ -84,7 +83,7 @@ class ArticleListView(generic.ListView):
             self.title = '「{}」カテゴリ'.format(category.name)
         if keywords:
             for i in keywords:
-                articles = articles.filter(Q(title__icontains=i) | Q(contents__icontains=i) | Q(description__icontains=i))
+                articles = articles.filter(contents__icontains=i)
             self.title = '「{}」の検索結果'.format(' '.join(keywords))
         return articles
 
