@@ -6,7 +6,7 @@
 
   <section class="article">
     <nav class="article-list">
-      <h2 class="article-list__title">tsux.me ブログ</h2>
+      <h2 class="article-list__title">TOPICS</h2>
       <span
         class="article-list__article-number">{{ page_obj.start_index }}{% if page_obj.start_index != page_obj.end_index %}
         〜 {{ page_obj.end_index }}{% endif %}件 / {{ page_obj.paginator.count }}件中</span>
@@ -30,7 +30,7 @@
       {% endfor %}
       <ul class="list__page-nav">
         {% if page_obj.has_previous %}
-        <a href="?page={{ page_obj.previous_page_number }}">前へ</a>
+        <a class="list__page-nav-item" href="?page={{ page_obj.previous_page_number }}">前へ</a>
         {% endif %}
         {% for num in page_obj.paginator.page_range %}
         {% if page_obj.number == num %}
@@ -40,7 +40,7 @@
         {% endif %}
         {% endfor %}
         {% if page_obj.has_next %}
-        <a href="?page={{ page_obj.next_page_number }}">次へ</a>
+        <a class="list__page-nav-item" href="?page={{ page_obj.next_page_number }}">次へ</a class="list__page-nav-item">
         {% endif %}
       </ul>
     </nav>

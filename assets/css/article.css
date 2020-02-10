@@ -47,7 +47,7 @@
 .article__date-item {
   color: #888;
   font-size: 14px;
-  margin: 0 10px;
+  margin: 10px;
 }
 
 .article__thumb {
@@ -60,7 +60,20 @@
 }
 
 .article__detailes {
-  margin-bottom: 10px;
+  margin-bottom: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.advertisement {
+  display: block;
+  text-align: center;
+  margin: 5px;
+}
+
+.advertisement img {
+  max-width: 95vw !important;
 }
 
 @media (max-width:1000px) {
@@ -68,6 +81,11 @@
   .article {
     margin: 10px;
     width: calc(100% - 20px);
+    padding: 5px 10px;
+  }
+
+  .md {
+    padding: 20px 5px;
   }
 
   .breadcrumb {

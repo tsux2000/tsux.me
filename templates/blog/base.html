@@ -37,7 +37,10 @@
     <header class="header">
       <i class="fas fa-bars header__panel-button" id="js-header__panel-button"></i>
       <h1 class="header__h1">
-        <a class="header__title" href="{{ request.scheme }}://{{ request.get_host }}/">tsux.me</a>
+        <a class="header__title" href="{{ request.scheme }}://{{ request.get_host }}/">
+          <span>tsux.me</span>
+          <span class="header__subtitle">現役京大生エンジニア精進の日々</span>
+        </a>
       </h1>
     </header>
     {% include './frontparts/panel.html' %}
@@ -50,7 +53,7 @@
       <div class="footer__anchors">
         <a href="{% url 'article' 'privacy_policy' %}" class="footer__anchor">プライバシーポリシー</a>
       </div>
-      <span class="footer__copyright">©️ 2020 tsux</span>
+      <span class="footer__copyright">©️ 2020 tsux.</span>
     </footer>
   </body>
 </html>
