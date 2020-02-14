@@ -6,7 +6,7 @@ import os
 import environ
 
 # Base Directory
-BASE_DIR = environ.Path(__file__) - 3
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # Read Environment Variables
 env = environ.Env()
