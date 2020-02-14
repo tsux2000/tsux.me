@@ -13,7 +13,7 @@ env = environ.Env()
 env.read_env('.env')
 
 # Debug
-DEBUG = env('DEBUG')
+DEBUG = env.get_value('DEBUG', cast=bool, default=False)
 
 # Hosts
 ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
