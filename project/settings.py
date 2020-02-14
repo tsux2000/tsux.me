@@ -3,9 +3,28 @@ Django Base Settings
 """
 
 import os
+import environ
 
-# Base directory
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+# Base Directory
+BASE_DIR = environ.Path(__file__) - 3
+
+# Read Environment Variables
+env = environ.Env()
+env.read_env('.env')
+
+# Debug
+DEBUG = env('DEBUG')
+
+# Hosts
+ALLOWED_HOSTS = env.list('ALLOWED_HOSTS')
+
+# Secret Key
+SECRET_KEY = env('SECRET_KEY')
+
+# Data Bases
+DATABASES = {
+    'default': env.db(),
+}
 
 # Applications
 INSTALLED_APPS = [

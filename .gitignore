@@ -11,9 +11,8 @@ venv/
 /static/
 /media/
 
-# Django Local Settings
-local.py
-secret.py
+# Django Environment Variables
+.env
 
 # Django Local Database Files
 **/migrations/*
